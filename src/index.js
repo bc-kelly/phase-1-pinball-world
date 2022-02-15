@@ -30,8 +30,8 @@ fetch ('http://localhost:3000/games')
 
 function putList (games) {
     games.forEach(games => { 
-        let listingOfGames = document.createElement('div')
-        listingOfGames.textContent = games.name + ` (${games.manufacturer_name})`
+        let listingOfGames = document.createElement('p')
+        listingOfGames.textContent = `${games.name} (${games.manufacturer_name})`
         gameList.append(listingOfGames);
 
         listingOfGames.addEventListener('click', e => {
@@ -53,14 +53,17 @@ function showFirstGame (games) {
     // enterHighScore(games);
 }
 
-function enterHighScore (games) {
+function enterHighScore () {
     
     highScoreForm.addEventListener('submit', e => {
         e.preventDefault();
         console.log('submitted')
-        currentGame = games;
-        detailHighScore.textContent = e.target['score-input'].value
+
+        // detailHighScore.textContent = e.target['score-input'].value **this does not save it everytime you click to a new game
+        currentGame.high_score = e.target['score-input'].value
 
         e.target.reset();
+        showFirstGame(currentGame);
     })
 }
+
